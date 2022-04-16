@@ -1,3 +1,5 @@
+package forkjoinpool;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -6,26 +8,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.IntStream;
 
-public class OptimizedParallelPerformance {
+/**
+ * If using customized executor, all threads will be used when running blocking tasks.
+ */
+public class CustomizedExecutorBlockingTaskParallelPerformance {
 
     private static final ExecutorService executor = Executors.newFixedThreadPool(100);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-//        Thread thread = Thread.currentThread();
-//        System.out.println(thread.getName());
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println(Thread.currentThread().getName());
-//            }
-//        }).start();
-        System.out.println(Runtime.getRuntime().availableProcessors());
         long start = System.currentTimeMillis();
-//        IntStream.range(1, 100)
-//                .parallel()
-//                .forEach(x -> {
-//                    BlockingTasks.callInManagedBlock(() -> sleep());
-//                });
         List<Future<Integer>> futures = new ArrayList<>();
         IntStream.range(1, 100)
                 .forEach(x -> {
@@ -36,6 +27,7 @@ public class OptimizedParallelPerformance {
         }
         long end = System.currentTimeMillis();
         System.out.println(end - start);
+        executor.shutdown();
     }
 
     public static Integer sleep() {
