@@ -1,0 +1,5 @@
+The basic of recursive is that the problem can be divided into smaller problems, e.g. A big number in
+Febbinaci can be divided to two smaller numbers, smaller number is smaller problem.
+The second precondition is the state should be clear, e.g. stock is not easy to calculate via recursive,
+since the big problem has relation with the divided smaller problems, which is the big problem's profit
+depends on small problem's buy in price.

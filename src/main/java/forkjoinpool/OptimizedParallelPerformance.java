@@ -1,12 +1,16 @@
+package forkjoinpool;
+
+import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
 
-public class DefaultParallelPerformance {
+public class OptimizedParallelPerformance {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        System.out.println(Runtime.getRuntime().availableProcessors());
         IntStream.range(1, 100)
                 .parallel()
                 .forEach(x -> {
-                    System.out.println(sleep());
+                    BlockingTasks.callInManagedBlock(() -> sleep());
                 });
     }
 

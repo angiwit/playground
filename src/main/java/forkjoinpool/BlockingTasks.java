@@ -1,9 +1,11 @@
+package forkjoinpool;
+
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Supplier;
 
 public class BlockingTasks {
 
-    public static<T> T callInManagedBlock(final Supplier<T> supplier) {
+    public static <T> T callInManagedBlock(final Supplier<T> supplier) {
         final SupplierManagedBlock<T> managedBlock = new SupplierManagedBlock<>(supplier);
         try {
             ForkJoinPool.managedBlock(managedBlock);

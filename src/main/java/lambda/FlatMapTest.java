@@ -1,4 +1,9 @@
+package lambda;
+
+import com.google.common.collect.ImmutableList;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,14 +24,14 @@ public class FlatMapTest {
         person.setNestedList(nestedList);
         Optional.ofNullable(person)
                 .map(x -> x.getNestedList())
-                // Lst result is encapsulated by Optional, so it can't be retrieved directly, use orElse to
+                // List result is encapsulated by Optional, so it can't be retrieved directly, use orElse to
                 // retrieve the inner nested list.
-                .orElse(List.of())
+                .orElse(ImmutableList.of())
                 // stream() here can make outer list to stream form.
                 .stream()
                 // Stream<List<xxx>> is nested, so it can be flatted by flatMap.
                 // Use map here can iterate the inner list.
-                .flatMap(x -> x.stream())
+                .flatMap(Collection::stream)
                 // Use flatMap and the stream changed to string stream, then map can be used here.
                 .map(x -> x.toLowerCase())
                 .collect(Collectors.toList());
