@@ -25,41 +25,27 @@ public class WordBreak {
     }
 
     public static boolean wordBreakCoreDp(String s, List<String> wordDict) {
-        Set<String> wordsSet = new HashSet<>(wordDict);
-        boolean[] dp = new boolean[s.length() + 1];
+        boolean[] dp = new boolean[s.length() + 1]; // s(0, i) if a word.
+        Set<String> words = new HashSet<>(wordDict);
         dp[0] = true;
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (dp[j] && wordsSet.contains(s.substring(j, i))) {
-                    dp[i] = true;
-                    break;
+        for (int j = 1; j < s.length(); j++) {
+            for (int i = 0; i < j; i++) {
+                String subString = s.substring(i, j);
+                if (dp[i] && words.contains(subString)) {
+                    dp[j] = true;
+                    break; // once found a true, break to avoid following iteration's overwriting.
                 }
             }
         }
         return dp[s.length()];
     }
 
-    // exceeds time limit.
+    // backtrace.
     public static boolean wordBreakCore(String s, List<String> wordDict, Deque<String> result) {
-        for (int i = 0; i < wordDict.size(); i++) {
-            result.addLast(wordDict.get(i));
-            String temp = String.join("", result);
-            if (temp.length() > s.length()) {
-                result.removeLast();
-                continue;
-            }
-            if (temp.equals(s)) {
-                return true;
-            }
-            if (!s.startsWith(temp)) {
-                result.removeLast();
-                continue;
-            }
-            boolean r = wordBreakCore(s, wordDict, result);
-            if (r == true) {
-                return true;
-            } else {
-                result.removeLast();
+        Set<String> words = new HashSet<>(wordDict);
+        for (int i = 0; i < s.length(); i++) {
+            if (words.contains(s.substring(0, i)) && words.contains(s.substring(i))) {
+
             }
         }
         return false;
