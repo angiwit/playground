@@ -42,19 +42,13 @@ public class TreeTraversalIteration {
 
     public static List<Integer> preOrderTraversalIterationCore(TreeNode treeNode) {
         Stack<TreeNode> stack = new Stack<>();
-        List<Integer> result = new ArrayList<>();
         stack.push(treeNode);
-        while (stack.size() > 0) {
+        List<Integer> result = new ArrayList<>();
+        while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
             result.add(node.val);
-            // Add right to stack first, then left, when popping, the order is: root -> left -> right.
-            // When popping out an element, check its left and right, stack makes this naturally recursive.
-            if (node.right != null) {
-                stack.push(node.right);
-            }
-            if (node.left != null) {
-                stack.push(node.left);
-            }
+            if (node.right != null) stack.push(node.right);
+            if (node.left != null) stack.push(node.left);
         }
         return result;
     }
@@ -62,15 +56,15 @@ public class TreeTraversalIteration {
     public static List<Integer> middleOrderTraversalIterationCore(TreeNode treeNode) {
         Stack<TreeNode> stack = new Stack<>();
         List<Integer> result = new ArrayList<>();
-        TreeNode temp = treeNode;
-        while (temp != null || stack.size() > 0) {
-            if (temp != null) {
-                stack.push(temp);
-                temp = temp.left;
+        TreeNode node = treeNode;
+        while (!stack.isEmpty() || node != null) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
             } else {
                 TreeNode pop = stack.pop();
                 result.add(pop.val);
-                temp = temp.right;
+                node = pop.right;
             }
         }
         return result;
@@ -84,18 +78,13 @@ public class TreeTraversalIteration {
      */
     public static List<Integer> postOrderTraversalIterationCore(TreeNode treeNode) {
         Stack<TreeNode> stack = new Stack<>();
-        List<Integer> result = new ArrayList<>();
         stack.push(treeNode);
-        while (stack.size() > 0) {
-            // recursively add and pop elements.
-            TreeNode temp = stack.pop();
-            result.add(temp.val);
-            if (temp.left != null) {
-                stack.push(temp.left);
-            }
-            if (temp.right != null) {
-                stack.push(temp.right);
-            }
+        List<Integer> result = new ArrayList<>();
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            result.add(node.val);
+            if (node.left != null) stack.push(node.left);
+            if (node.right != null) stack.push(node.right);
         }
         return reverse(result);
     }

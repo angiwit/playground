@@ -3,6 +3,9 @@ package forkjoinpool;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Supplier;
 
+/**
+ * https://blog.csdn.net/heng_zou/article/details/118193846
+ */
 public class BlockingTasks {
 
     public static <T> T callInManagedBlock(final Supplier<T> supplier) {

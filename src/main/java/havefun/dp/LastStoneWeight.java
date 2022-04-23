@@ -27,40 +27,33 @@ public class LastStoneWeight {
     private static int lastStoneWeightIICoreDP(int[] stones) {
         int sum = Arrays.stream(stones).sum();
         int half = sum / 2;
-        int[][] result = new int[stones.length + 1][half + 1]; // [target][item]
+        int[][] dp = new int[stones.length + 1][half + 1];
         for (int i = 0; i < stones.length; i++) {
-            result[i][0] = 0;
+            dp[i][0] = 0;
         }
-        for (int i = 0; i < half + 1; i++) {
-            result[0][i] = 0;
+        for (int i = 0; i <= half; i++) {
+            dp[0][i] = 0;
         }
         for (int i = 1; i <= stones.length; i++) {
-            for (int j = 1; j < half + 1; j++) {
-                if (stones[i - 1] <= j) {
-                    //choose
-                    result[i][j] = Math.max(result[i - 1][j - stones[i - 1]] + stones[i - 1], result[i - 1][j]);
+            for (int j = 1; j <= half; j++) {
+                if (j > stones[i - 1]) {
+                    dp[i][j] = Math.max(dp[i - 1][j - stones[i - 1]] + stones[i - 1], dp[i - 1][j]);
                 } else {
-                    // not choose
-                    result[i][j] = result[i - 1][j];
+                    dp[i][j] = dp[i - 1][j];
                 }
             }
         }
-        return sum - 2 * result[stones.length][half];
+        return sum - 2 * dp[stones.length][half];
     }
 
     private static int lastStoneWeightIICoreDPOptimized(int[] stones) {
         int sum = Arrays.stream(stones).sum();
         int half = sum / 2;
         int[] dp = new int[half + 1];
-        for (int i = 0; i < half + 1; i++) {
-            dp[i] = 0;
-        }
         for (int i = 1; i <= stones.length; i++) {
-            // if iterate from left to right, same value could be calculated again and again.
-            for (int j = half; j >= 0; j--) {
-                if (stones[i - 1] <= j) {
-                    //choose
-                    dp[j] = Math.max(dp[j - stones[i - 1]] + stones[i - 1], dp[j]);
+            for (int j = half; j >= 1; j--) {
+                if (j > stones[i - 1]) {
+                    dp[j] = Math.max(dp[j], dp[j - stones[i - 1]] + stones[i - 1]);
                 }
             }
         }

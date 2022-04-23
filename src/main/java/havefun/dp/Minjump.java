@@ -18,16 +18,15 @@ public class Minjump {
      */
     public static int jumpCore(int[] nums) {
         int end = 0;
-        int maxPosition = 0;
-        int result = 0;
-        for (int i = 0; i < nums.length - 1; i++) {
-            maxPosition = Math.max(maxPosition, nums[i] + i); // calculate the max value in the current can jump to range.
-            if (i == end) { // check the sub range, to see if sub range jumped completely.
-                end = maxPosition; // After the last index of sub range is checked, update the end to max position.
-                result++; // time of jump add 1 because all index in the sub range can be reached in one jump.
+        int step = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int longestJump = nums[i] + i;
+            if (i == end) {
+                end = longestJump;
+                step++;
             }
         }
-        return result;
+        return step;
     }
 
     /**
@@ -41,16 +40,16 @@ public class Minjump {
      * @return
      */
     public static int jumpCoreDP(int[] nums) {
-        int[] result = new int[nums.length];
-        Arrays.fill(result, Integer.MAX_VALUE);
-        result[0] = 0;
-        for (int i = 0; i < nums.length; i++) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int i = 1; i <= nums.length; i++) {
             int longestJump = Math.min(nums[i] + i, nums.length - 1);
             for (int j = i + 1; j <= longestJump; j++) {
-                result[j] = Math.min(result[i] + 1, result[j]);
+                dp[j] = Math.min(dp[j], dp[i] + 1);
             }
         }
-        return result[nums.length - 1];
+        return dp[nums.length - 1];
     }
 
     public static void main(String[] args) {

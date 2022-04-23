@@ -2,6 +2,9 @@ package havefun.dp;
 
 import java.util.Arrays;
 
+/**
+ * https://leetcode-cn.com/problems/perfect-squares/
+ */
 public class NumSquares {
 
     public static void main(String[] args) {
@@ -16,22 +19,16 @@ public class NumSquares {
     public static int numSquaresCore(int n) {
         int[] dp = new int[n + 1];
         Arrays.fill(dp, Integer.MAX_VALUE);
-        /**
-         * dp[0] should be initialized to 0 since dp[1] should equal to 1.
-         */
         dp[0] = 0;
         for (int i = 1; i <= n; i++) {
-            // j * j could equals to i, so use <= here.
-            for (int j = 1; j * j <= i; j++) {
-                /**
-                 * Formula should reflect the calculation in the problem.
-                 * j * j equals 1 which means a square number found.
-                 * i - j * j means the problem is divided into a sub problem: found the smallest number of
-                 * i - j * j.
-                 * every number can be formed by multiple 1 * 1, so we don't need to check if i - j * j is
-                 * also can be formed by square number, since it definitely is.
-                 */
-                dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
+            for (int j = 1; j * j <= n; j++) {
+                if (i >= j * j) {
+                    dp[i] = Math.min(dp[i], dp[i - j * j] + 1); // choose number.
+                }
+                // Can not extend the value from previous result, since not every number is a square number.
+//                else {
+//                    dp[i] = dp[i - 1];
+//                }
             }
         }
         return dp[n];

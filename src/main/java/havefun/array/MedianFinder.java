@@ -3,6 +3,10 @@ package havefun.array;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * https://leetcode-cn.com/problems/find-median-from-data-stream/
+ * PriorityQueue is a min heap by default.
+ */
 public class MedianFinder {
 
     public static void main(String[] args) {
@@ -14,8 +18,8 @@ public class MedianFinder {
         System.out.println(medianFinder.findMedian());
     }
 
-    private static final Queue<Integer> min = new PriorityQueue<>();
-    private static final Queue<Integer> max = new PriorityQueue<>((o1, o2) -> o2 - o1);
+    private static final Queue<Integer> max = new PriorityQueue<>();
+    private static final Queue<Integer> min = new PriorityQueue<>((o1, o2) -> o2 - o1);
 
     public MedianFinder() {
         min.clear();
@@ -23,18 +27,18 @@ public class MedianFinder {
     }
 
     public void addNum(int num) {
-        if (max.size() == 0) {
-            max.offer(num);
+        if (min.isEmpty()) {
+            min.offer(num);
             return;
         }
-        if (max.peek() > num) {
+        if (min.peek() < num) {
             max.offer(num);
-            if (max.size() - 2 == min.size()) {
+            if (min.size() < max.size()) {
                 min.offer(max.poll());
             }
         } else {
             min.offer(num);
-            if (min.size() > max.size()) {
+            if (min.size() == max.size() + 2) {
                 max.offer(min.poll());
             }
         }

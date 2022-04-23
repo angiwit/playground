@@ -63,8 +63,7 @@ public class WiggleMaxLength {
     }
 
     public static int wiggleMaxLengthCoreDPOptimized(int[] nums) {
-        int up = 1;
-        int down = 1;
+        int up = 1, down = 1;
         for (int i = 1; i < nums.length; i++) {
             if (nums[i] > nums[i - 1]) {
                 up = down + 1;

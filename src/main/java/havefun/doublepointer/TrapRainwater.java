@@ -8,23 +8,21 @@ public class TrapRainwater {
     }
 
     public static int trapCore(int[] height) {
-        int leftMax = 0;
-        int rightMax = 0;
-        int total = 0;
-        int i = 0;
-        int j = height.length - 1;
+        int i = 0, j = height.length - 1;
+        int leftMax = 0, rightMax = 0;
+        int result = 0;
         while (i < j) {
-            leftMax = Math.max(leftMax, height[i]);
-            rightMax = Math.max(rightMax, height[j]);
-            if (height[i] <= height[j]) {
-                total += leftMax - height[i];
+            leftMax = Math.max(height[i], leftMax);
+            rightMax = Math.max(height[j], rightMax);
+            if (leftMax < rightMax) { // if leftMax at index i, then leftMax - height[i] = 0.
+                result += leftMax - height[i];
                 i++;
             } else {
-                total += rightMax - height[j];
+                result += rightMax - height[j];
                 j--;
             }
         }
-        return total;
+        return result;
     }
 
     public static void main(String[] args) {

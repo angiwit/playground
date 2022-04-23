@@ -10,13 +10,12 @@ public class InvertTree {
     }
 
     public static TreeNode invertTreeCore(TreeNode root) {
-        if (root.left != null || root.right != null) {
-            TreeNode left = root.left;
-            root.left = root.right;
-            root.right = left;
-        }
-        if (root.left != null) invertTreeCore(root.left);
-        if (root.right != null) invertTreeCore(root.right);
+        if (root == null) return null;
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        invertTreeCore(root.left);
+        invertTreeCore(root.right);
         return root;
     }
 }

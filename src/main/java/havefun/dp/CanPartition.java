@@ -27,35 +27,21 @@ public class CanPartition {
      */
     public static boolean canPartitionCore1(int[] nums, int target) {
         boolean[][] dp = new boolean[nums.length + 1][target + 1];
-        for (int i = 0; i < nums.length + 1; i++) {
+        for (int i = 0; i < nums.length; i++) {
             dp[i][0] = false;
         }
-        for (int i = 0; i < target + 1; i++) {
+        for (int i = 0; i <= target; i++) {
             dp[0][i] = false;
         }
-        /**
-         * dp[0][0] = true is important! It equals to target is 0 and there's no element, it can be
-         * considered as there's two empty array each of them's sum is 0.
-         */
         dp[0][0] = true;
-
-        for (int i = 1; i < nums.length + 1; i++) {
-            for (int j = 1; j < target + 1; j++) {
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 1; j <= target; j++) {
                 if (nums[i - 1] == j) {
-                    // when a number equals to target, result is true.
                     dp[i][j] = true;
                 } else if (j > nums[i - 1]) {
-                    // when target greater than a number, then we can choose or not choose this number,
-                    // either case is true, then the result is true.
-                    /**
-                     * dp[i - 1][j]: DO NOT CHOOSE current number, check previous number if is true.
-                     * dp[i - 1][j - nums[i - 1]]: CHOOSE current number, check [i-1][j-nums[i-1]] if is true.
-                     */
-                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];
+                    // two options: choose or not choose current item.
+                    dp[i][j] = dp[i - 1][j - nums[i]] || dp[i - 1][j];
                 } else {
-                    /**
-                     * target less than current number, CAN NOT CHOOSE current number, result equals to previous result.
-                     */
                     dp[i][j] = dp[i - 1][j];
                 }
             }

@@ -1,5 +1,8 @@
 package havefun.greedy;
 
+/**
+ * https://leetcode-cn.com/problems/monotone-increasing-digits/
+ */
 public class MonotoneIncreasingDigits {
 
     public static void main(String[] args) {
@@ -12,20 +15,23 @@ public class MonotoneIncreasingDigits {
     }
 
     public static int monotoneIncreasingDigitsCore(int n) {
-        String ns = String.valueOf(n);
-        StringBuilder ad = new StringBuilder(ns);
-        int firstPlace = ns.length();
-        for (int i = ns.length() - 1; i > 0; i--) {
-            char cur = ad.charAt(i);
-            char prev = ad.charAt(i - 1);
-            if (prev > cur) {
-                firstPlace = i;
-                ad.setCharAt(i - 1, Character.forDigit(Character.getNumericValue(ns.charAt(i - 1)) - 1, 10));
+        StringBuilder sb = new StringBuilder(n);
+        int lastReplace = sb.length();
+        for (int i = sb.length() - 1; i >= 1; i--) {
+            char prev = sb.charAt(i - 1);
+            char curr = sb.charAt(i);
+            if (prev > curr) {
+                lastReplace = i;
+                /**
+                 * need to change this number otherwise the answer is a bigger number than input. e.g.
+                 * 9998, if not changing this char, the answer is 9999 instead of 8999.
+                 */
+                sb.setCharAt(i - 1, Character.forDigit(prev - '0' - 1, 10));
             }
         }
-        for (int i = firstPlace; i < ad.length(); i++) {
-            ad.setCharAt(i, '9');
+        for (int i = lastReplace; i < sb.length(); i++) {
+            sb.setCharAt(i, '9');
         }
-        return Integer.parseInt(ad.toString());
+        return Integer.parseInt(sb.toString());
     }
 }

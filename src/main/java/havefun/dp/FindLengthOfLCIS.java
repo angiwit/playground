@@ -1,7 +1,5 @@
 package havefun.dp;
 
-import java.util.Arrays;
-
 public class FindLengthOfLCIS {
 
     public static void main(String[] args) {
@@ -18,18 +16,14 @@ public class FindLengthOfLCIS {
 
     public static int findLengthOfLCISCore(int[] nums) {
         int[] dp = new int[nums.length];
-        Arrays.fill(dp, 1);
-        int max = 1;
-        int curMax = 1;
+        dp[0] = 1;
         for (int i = 1; i < nums.length; i++) {
             if (nums[i] > nums[i - 1]) {
                 dp[i] = dp[i - 1] + 1;
-                curMax = Math.max(curMax, dp[i]);
             } else {
-                curMax = 1;
-                max = Math.max(dp[i - 1], max);
+                dp[i] = dp[i - 1];
             }
         }
-        return Math.max(curMax, max);
+        return dp[nums.length - 1];
     }
 }

@@ -1,5 +1,8 @@
 package havefun.dp;
 
+/**
+ * https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/
+ */
 public class LongestCommonSubsequence {
 
     public static int longestCommonSubsequence(String text1, String text2) {
@@ -13,7 +16,7 @@ public class LongestCommonSubsequence {
                 if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
                 }
             }
         }

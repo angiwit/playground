@@ -20,31 +20,27 @@ public class RestoreIpAddresses {
     }
 
     public static void restoreIpAddressesCore(String s, int start, List<String> res, Stack<String> path) {
-        if (start >= s.length() && path.size() == 4) {
+        if (path.size() < 4 && start == s.length() - 1) return;
+        if (path.size() == 4 && start < s.length() - 1) return;
+        if (path.size() == 4 && start == s.length() - 1) {
             res.add(String.join(".", path));
             return;
         }
-        if (path.size() >= 4) {
-            return;
-        }
-        for (int i = start + 1; i < start + 4; i++) {
-            String first = s.substring(start, i);
-            if (first.length() > 3) {
+        for (int i = start; i < 3; i++) {
+            String segment = s.substring(start, i + 1);
+            if (segment.length() > 1 && segment.startsWith("0")) {
                 break;
             }
-            if (s.length() - start < 4 - path.size()) {
-                break;
-            }
-            if (s.length() - start - 1 > 3 * (4 - path.size())) {
-                break;
-            }
-            if (isValidIpAddress(first)) {
-                path.push(first);
+            if (isValidIpAddress(segment)) {
+                if (s.length() - segment.length() > 3 * (4 - path.size())) {
+                    break;
+                }
+                path.push(segment);
+                restoreIpAddressesCore(s, i + 1, res, path);
+                path.pop();
             } else {
-                break; // NOT continue since current is not valid, adding numbers won't make it valid.
+                break;
             }
-            restoreIpAddressesCore(s, start + first.length(), res, path);
-            path.pop();
         }
     }
 

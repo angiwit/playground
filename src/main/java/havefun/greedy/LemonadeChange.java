@@ -1,5 +1,10 @@
 package havefun.greedy;
 
+import java.util.TreeMap;
+
+/**
+ * https://leetcode-cn.com/problems/lemonade-change/
+ */
 public class LemonadeChange {
 
     public static void main(String[] args) {
@@ -15,25 +20,24 @@ public class LemonadeChange {
     }
 
     public static boolean lemonadeChangeCore(int[] bills) {
-        int fiveNo = 0;
-        int tenNo = 0;
+        TreeMap<Integer, Integer> count = new TreeMap<>();
         for (int i = 0; i < bills.length; i++) {
-            if (bills[i] > 5 && fiveNo == 0 && tenNo == 0) {
-                return false;
+            Integer bill = count.get(bills[i]);
+            if (bill == null) {
+                count.put(bill, 1);
+            } else {
+                count.put(bills[i], bill + 1);
             }
-            int expectedChange = bills[i] - 5;
-            // have ten.
-            int tenCount = Math.min(expectedChange / 10, tenNo);
-            tenNo -= tenCount;
-            expectedChange -= tenCount * 10;
-            int fiveCount = Math.min(expectedChange / 5, fiveNo);
-            fiveNo -= fiveCount;
-            expectedChange -= fiveCount * 5;
-            if (expectedChange > 0) {
-                return false;
+            int change = bills[i] - 5;
+            while (change > 0) {
+                Integer changeKey = count.lowerKey(change);
+                if (changeKey == null) {
+                    return false;
+                } else {
+                    count.put(changeKey, count.get(changeKey) - 1);
+                }
+                change -= changeKey;
             }
-            if (bills[i] == 5) fiveNo++;
-            if (bills[i] == 10) tenNo++;
         }
         return true;
     }
