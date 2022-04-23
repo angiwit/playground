@@ -19,16 +19,16 @@ public class FindMinArrowShots {
 
     public static int findMinArrowShotsCore(int[][] points) {
         Arrays.sort(points, Comparator.comparingInt(o -> o[0]));
-        int res = 1;
-        int curEnd = points[0][1];
+        int result = 0;
+        int end = points[0][1];
         for (int i = 1; i < points.length; i++) {
-            if (points[i][0] > curEnd) {
-                res++;
-                curEnd = points[i][1];
+            if (points[i][0] > end) {
+                end = points[i][1];
+                result++;
             } else {
-                curEnd = Math.min(curEnd, points[i][1]);
+                end = Math.min(end, points[i][1]);
             }
         }
-        return res;
+        return ++result;
     }
 }

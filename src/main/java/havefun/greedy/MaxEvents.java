@@ -1,7 +1,11 @@
 package havefun.greedy;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 
+/**
+ * https://leetcode-cn.com/problems/maximum-number-of-events-that-can-be-attended/
+ */
 public class MaxEvents {
 
     public static int maxEvents(int[][] events) {
@@ -9,41 +13,40 @@ public class MaxEvents {
         return maxEventsCore(events);
     }
 
+    /**
+     * at same start day, we should choose the smallest end day meeting. Since a bigger end day meeting can be chosen
+     * if following days, but a small end day may be not.
+     * <p>
+     * How to find all the meetings starts at someday or ends at someday?
+     * 1. Add start day and end day into two lists at index events[i][0], events[i][1].
+     * 2. Use a set to store the meetings can be chosen is particular day:
+     *
+     * @param events
+     * @return
+     */
     public static int maxEventsCore(int[][] events) {
-        List<Integer[][]> eventList = new ArrayList<>();
-        for (int i = 0; i < events.length; i++) {
-            Integer[][] event = new Integer[1][2];
-            event[0][0] = events[i][0];
-            event[0][1] = events[i][1];
-            eventList.add(event);
-        }
-        Collections.sort(eventList, (o1, o2) -> {
-            if (o1[0][0].intValue() != o2[0][0].intValue()) {
-                return o1[0][0] - o2[0][0];
-            } else {
-                return o1[0][1] - o2[0][1];
+        Arrays.sort(events, (o1, o2) -> {
+            if (o1[1] == o2[1]) {
+                return o1[0] - o2[0];
             }
-        });
-        int currentDay = 1;
-        Queue<Integer> days = new PriorityQueue<>();
-        int max = 0;
-        int i = 0;
-        while (i < eventList.size() || days.size() > 0) {
-            while (i < eventList.size() && eventList.get(i)[0][0] == currentDay) {
-                days.add(eventList.get(i)[0][1]);
-                i++;
+            return o1[1] - o2[1];
+        }); // sort by end day.
+        int result = 0, i = 0, currentDay = 1;
+        PriorityQueue<Integer> ends = new PriorityQueue<>();
+        while (i < events.length || !ends.isEmpty()) {
+            while (i < events.length && events[i][0] == currentDay) {
+                ends.offer(events[i++][1]);
             }
-
-            while (days.size() > 0 && days.peek() < currentDay) {
-                days.poll();
+            while (!ends.isEmpty() && ends.peek() < currentDay) {
+                ends.poll();
             }
-            if (days.size() > 0) {
-                days.poll();
-                max++;
+            if (!ends.isEmpty()) {
+                ends.remove();
+                result++;
             }
             currentDay++;
         }
-        return max;
+        return result;
     }
 
     public static void main(String[] args) {

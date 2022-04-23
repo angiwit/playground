@@ -39,27 +39,6 @@ public class RemoveElement {
         return slow;
     }
 
-    public static int removeElementCore(int[] nums, int val) {
-        int end = nums.length - 1;
-        int start = 0;
-        if (start == end && nums[start] == val) return 0;
-        while (start < end) {
-            // Everytime you write a while loop, please make sure the index is still within bound.
-            while (end >= 0 && nums[end] == val) {
-                end--;
-            }
-            // Everytime you finished a while loop to get the index, please make sure the index is still within bound.
-            if (start < end) {
-                if (nums[start] == val) {
-                    swap(nums, start, end);
-                } else {
-                    start++;
-                }
-            }
-        }
-        return end + 1;
-    }
-
     private static void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];

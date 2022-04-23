@@ -23,6 +23,7 @@ public class LongestPalindromeSubseq {
                 if (s.charAt(i) == s.charAt(j)) {
                     dp[i][j] = dp[i + 1][j - 1] + 2;
                 } else {
+                    // since the initialization is not same as others, so we need to check current's left under cell value.
                     dp[i][j] = Math.max(dp[i + 1][j], Math.max(dp[i][j - 1], dp[i + 1][j - 1]));
                 }
                 max = Math.max(dp[i][j], max);

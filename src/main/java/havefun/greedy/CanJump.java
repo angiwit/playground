@@ -1,5 +1,8 @@
 package havefun.greedy;
 
+/**
+ * https://leetcode-cn.com/problems/jump-game/
+ */
 public class CanJump {
     public static boolean canJump(int[] nums) {
         if (nums == null || nums.length == 0) return false;
@@ -11,8 +14,10 @@ public class CanJump {
         int longestJump = 0;
         for (int i = 0; i < nums.length; i++) {
             if (i > longestJump) return false;
-            longestJump = Math.max(nums[i] + i, longestJump);
-            if (longestJump >= nums.length - 1) return true;
+            longestJump = Math.max(longestJump, nums[i] + i);
+            if (longestJump >= nums.length - 1) {
+                return true;
+            }
         }
         return false;
     }

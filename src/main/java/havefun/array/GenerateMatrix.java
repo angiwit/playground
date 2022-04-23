@@ -17,76 +17,31 @@ public class GenerateMatrix {
         return generateMatrixCore(n);
     }
 
-    //incorrect
     public static int[][] generateMatrixCore(int n) {
         int[][] res = new int[n][n];
-        boolean fillingRow = true;
-        boolean left2Right = true;
-        boolean up2Down = true;
-        int row = 0;
-        int col = 0;
-        int i = 1;
+        int i = 0, num = 1;
+        int up = 0, left = 0, right = n - 1, down = n - 1;
         while (i <= n * n) {
-            if (fillingRow) {
-                if (left2Right) {
-                    if (res[row][col] != 0 || col > n - 1) {
-                        row++;
-                        col--;
-                        up2Down = true;
-                        fillingRow = false;
-                    } else {
-                        res[row][col] = i;
-                        if (col < n - 1) {
-                            col++;
-                        }
-                        i++;
-                    }
-                } else {
-                    if (res[row][col] != 0 || col < 0) {
-                        row--;
-                        col++;
-                        up2Down = false;
-                        fillingRow = false;
-                    } else {
-                        res[row][col] = i;
-                        if (col > 0) {
-                            col--;
-                        }
-                        i++;
-                    }
-                }
-            } else {
-                if (up2Down) {
-                    if (res[row][col] != 0 || row > n - 1) {
-                        col--;
-                        row--;
-                        left2Right = false;
-                        fillingRow = true;
-                    } else {
-                        res[row][col] = i;
-                        if (row < n - 1) {
-                            row++;
-                        }
-                        i++;
-                    }
-                } else {
-                    if (res[row][col] != 0 || row < 0) {
-                        col++;
-                        row++;
-                        left2Right = true;
-                        fillingRow = true;
-                    } else {
-                        res[row][col] = i;
-                        if (row > 0) {
-                            row--;
-                        }
-                        i++;
-                    }
-                }
+            for (int j = left; j <= right; j++) {
+                res[up][j] = num++;
             }
+            up++;
+            for (int j = up; j <= down; j++) {
+                res[j][right] = num++;
+            }
+            right--;
+            for (int j = right; j >= left; j--) {
+                res[down][j] = num++;
+            }
+            down--;
+            for (int j = down; j >= up; j--) {
+                res[left][j] = num++;
+            }
+            left++;
         }
         return res;
     }
+
 
     public void iterateMatrix(int[][] n) {
         int left = 0;

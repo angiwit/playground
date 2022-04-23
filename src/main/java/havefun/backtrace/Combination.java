@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * https://leetcode-cn.com/problems/combinations/
+ */
 public class Combination {
 
     /**
@@ -20,29 +23,17 @@ public class Combination {
         return result;
     }
 
-    /**
-     * IMPORTANT!! When comes to end, the final number is reviewed in **current round**
-     * After the for loop, pop a number and the index will automatically increase one to next number.
-     **/
+
     public static void combineCore(int k, int start, int end, Stack<Integer> found, List<List<Integer>> result) {
-        if (found != null && found.size() == k) {
-            List<Integer> temp = new ArrayList<>();
-            temp.addAll(found);
-            result.add(temp);
-            /**
-             * Pop the last element we just added, and since the method returns here, after return,
-             * we need to pop another element to make the last element change to another one.
-             */
+        if (found.size() == k) {
+            result.add(new ArrayList<>(found));
             return;
         }
-        // when comes to end, the final number is reviewed in current round
         for (int i = start; i < end; i++) {
             found.push(i);
             combineCore(k, i + 1, end, found, result);
             found.pop();
         }
-        // out of the for loop, and begin next round loop, clear state.
-//        if (found.size() > 0) found.pop();
     }
 
     /**
@@ -55,21 +46,17 @@ public class Combination {
      * @param result
      */
     public static void combineCoreWithCutting(int k, int start, int end, Stack<Integer> found, List<List<Integer>> result) {
-        if (found != null && found.size() == k) {
-            List<Integer> temp = new ArrayList<>();
-            temp.addAll(found);
-            result.add(temp);
-            found.pop();
+        if (found.size() == k) {
+            result.add(new ArrayList<>(found));
             return;
         }
-
-        for (int i = start; i <= found.size() + end + 1 - k; i++) {
-//            if (found.size() + (end - i - 1) < k) break; // i < found.size() + end + 1 - k
+        for (int i = start; i > k - 1 - end - found.size(); i++) {
+            // left still need choose: k - found.size(), index should be less than [end - (k - found.size()) + 1].
+//            if (i > end - (k - found.size()) + 1) break;
             found.push(i);
             combineCore(k, i + 1, end, found, result);
+            found.pop();
         }
-        // out of the for loop, and begin next round loop, clear state.
-        if (found.size() > 0) found.pop();
     }
 
     public static void main(String[] args) {

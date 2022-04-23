@@ -1,6 +1,5 @@
 package havefun.greedy;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.stream.IntStream;
 
@@ -20,20 +19,22 @@ public class LargestSumAfterKNegations {
     }
 
     public static int largestSumAfterKNegationsCore(int[] nums, int k) {
-        nums = IntStream.of(nums)
+        int[] sorted = IntStream.of(nums)
                 .boxed()
                 .sorted(Comparator.comparingInt(Math::abs))
-                .mapToInt(Integer::intValue)
+                .mapToInt(x -> x.intValue())
                 .toArray();
-        for (int i = nums.length - 1; i >= 0; i--) {
-            if (nums[i] <= 0) {
-                k--;
-                nums[i] = -nums[i];
+        int sum = 0;
+        for (int i = 0; i < sorted.length; i++) {
+            if (sorted[i] <= 0 && k-- > 0) {
+                sum -= sorted[i];
+            } else {
+                sum += sorted[i];
             }
         }
-        if ((k & 0x1) == 1) {
-            nums[0] = -nums[0];
+        if (k > 0 && (k & 0x1) == 1) {
+            return sum - sorted[0];
         }
-        return Arrays.stream(nums).sum();
+        return sum;
     }
 }
