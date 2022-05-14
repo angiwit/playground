@@ -14,7 +14,7 @@ public class CanJump {
         int longestJump = 0;
         for (int i = 0; i < nums.length; i++) {
             if (i > longestJump) return false;
-            longestJump = Math.max(longestJump, nums[i] + i);
+            longestJump = Math.max(nums[i] + i, longestJump);
             if (longestJump >= nums.length - 1) {
                 return true;
             }

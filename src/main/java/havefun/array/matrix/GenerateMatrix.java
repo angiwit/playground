@@ -1,4 +1,4 @@
-package havefun.array;
+package havefun.array.matrix;
 
 public class GenerateMatrix {
 
