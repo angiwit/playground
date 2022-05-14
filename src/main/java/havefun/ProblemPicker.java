@@ -8,6 +8,7 @@ public class ProblemPicker {
 
     private static final Map<String, Integer> problemNo = new HashMap<>();
     private static final Random random = new Random(System.currentTimeMillis());
+    private static final int CODE_TOP_PAGE = 18;
 
     static {
         problemNo.put("array", 6);
@@ -29,6 +30,12 @@ public class ProblemPicker {
     private static final int problemType = problemNo.size();
 
     private static void pickSpecific(String type) {
+        if (type.equals("codetop")) {
+            int pageNo = new Random(System.currentTimeMillis()).nextInt(CODE_TOP_PAGE);
+            int number = new Random(System.currentTimeMillis() / 100000).nextInt(20);
+            System.out.println(String.format("pageNo is: %s, number is: %s", pageNo, number));
+            return;
+        }
         int count = problemNo.get(type);
         System.out.println(random.nextInt(count));
     }
@@ -50,6 +57,7 @@ public class ProblemPicker {
     }
 
     public static void main(String[] args) {
-        pickSpecific("greedy");
+        pickSpecific("codetop");
+//        pickFromAll();
     }
 }

@@ -26,18 +26,13 @@ public class LowestCommonAncestor {
      */
     public static TreeNode lowestCommonAncestorCore(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) return null;
-        if (root.val == p.val || root.val == q.val) { // review current node's value, if equals to a target, return.
-            return root; // traverse and return in next level.
-        }
-        TreeNode left = lowestCommonAncestorCore(root.left, p, q); // The approach to get the returned value.
-        TreeNode right = lowestCommonAncestorCore(root.right, p, q); // upper level result.
-        if (left == null) {
-            return right;
-        }
-        if (right == null) {
-            return left;
-        }
-        return root; // upper level root is the lowest common ancestor.
+        if (root.val == p.val || root.val == q.val)
+            return root; // post-order traverse only when find a target or null return.
+        TreeNode left = lowestCommonAncestorCore(root.left, p, q);
+        TreeNode right = lowestCommonAncestorCore(root.right, p, q);
+        if (left == null) return right;
+        if (right == null) return left;
+        return root;
     }
 
     //No need to use this method to traverse the tree again.

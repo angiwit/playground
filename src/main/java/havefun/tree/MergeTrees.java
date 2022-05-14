@@ -2,6 +2,9 @@ package havefun.tree;
 
 import havefun.TreeNode;
 
+/**
+ * https://leetcode-cn.com/problems/merge-two-binary-trees/
+ */
 public class MergeTrees {
 
     public static TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
@@ -10,10 +13,10 @@ public class MergeTrees {
     }
 
     public static TreeNode mergeTreesCore(TreeNode root1, TreeNode root2) {
-        if (root1 == null) return root2;
-        if (root2 == null) return root1;
         if (root1 == null && root2 == null) return null;
-        if (root1 != null && root2 != null) {
+        else if (root1 == null) return root2;
+        else if (root2 == null) return root1;
+        else if (root1 != null && root2 != null) {
             root1.val = root1.val + root2.val;
         }
         root1.left = mergeTreesCore(root1.left, root2.left);

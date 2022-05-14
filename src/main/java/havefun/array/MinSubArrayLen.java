@@ -1,8 +1,5 @@
 package havefun.array;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 // https://leetcode-cn.com/problems/minimum-size-subarray-sum/
 public class MinSubArrayLen {
 
@@ -16,22 +13,25 @@ public class MinSubArrayLen {
         return minSubArrayLenCore(target, nums);
     }
 
+    /**
+     * Note that when removing from start, the sum still might bigger than target, so update result
+     * in the while loop.
+     *
+     * @param target
+     * @param nums
+     * @return
+     */
     public static int minSubArrayLenCore(int target, int[] nums) {
-        int sum = 0;
-        Deque<Integer> result = new ArrayDeque<>();
-        int minLen = Integer.MAX_VALUE;
-        int i = 0;
-        while (i < nums.length) {
-            result.addLast(i);
+        int start = 0, sum = 0, result = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
             if (sum >= target) {
-                while (sum >= target && result.size() > 0) {
-                    minLen = Math.min(minLen, result.getLast() - result.getFirst());
-                    sum -= nums[result.removeFirst()];
+                while (sum >= target) {
+                    result = Math.min(result, i - start + 1);
+                    sum -= nums[start++];
                 }
             }
-            i++;
         }
-        return minLen == Integer.MAX_VALUE ? 0 : minLen + 1;
+        return result == Integer.MAX_VALUE ? 0 : result;
     }
 }

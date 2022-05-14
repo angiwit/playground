@@ -2,33 +2,39 @@ package havefun.tree;
 
 import havefun.TreeNode;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
 public class ZigzagTreeTraverse {
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         if (root == null) return null;
         List<List<Integer>> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        boolean order = true;
-        while (!queue.isEmpty()) {
-            Deque<Integer> deque = new ArrayDeque<>();
-            for (int i = 0; i < queue.size(); i++) {
-                TreeNode node = queue.poll();
-                if (order) {
-                    deque.offerLast(node.val);
-                } else {
-                    deque.offerFirst(node.val);
+        ArrayDeque<TreeNode> deque1 = new ArrayDeque<>();
+        ArrayDeque<TreeNode> deque2 = new ArrayDeque<>();
+        deque1.addLast(root);
+        boolean left2Right = true;
+        while (!deque1.isEmpty() || !deque2.isEmpty()) {
+            List<Integer> temp = new ArrayList<>();
+            if (left2Right) {
+                int length = deque1.size();
+                while (length > 0) {
+                    TreeNode node = deque1.removeFirst();
+                    temp.add(node.val);
+                    if (node.left != null) deque2.addLast(root.left);
+                    if (node.right != null) deque2.addLast(root.right);
                 }
-                if (node.left != null) {
-                    queue.offer(node.left);
-                }
-                if (node.right != null) {
-                    queue.offer(node.right);
+            } else {
+                int length = deque2.size();
+                while (length > 0) {
+                    TreeNode node = deque2.removeLast();
+                    if (node.left != null) deque1.addLast(root.left);
+                    if (node.right != null) deque1.addLast(root.right);
                 }
             }
-            result.add(new ArrayList<>(deque));
+            result.add(temp);
         }
         return result;
     }
