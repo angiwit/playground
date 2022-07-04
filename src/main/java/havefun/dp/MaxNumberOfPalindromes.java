@@ -2,6 +2,9 @@ package havefun.dp;
 
 import java.util.Arrays;
 
+/**
+ * https://leetcode.cn/problems/palindromic-substrings/
+ */
 public class MaxNumberOfPalindromes {
 
     public static void main(String[] args) {

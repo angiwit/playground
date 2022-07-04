@@ -15,7 +15,7 @@ public class SearchRange {
     public static int[] searchRangeCore(int[] nums, int target, int left, int right) {
         int found = -1;
         while (left <= right) {
-            int pivotal = left + ((right - left) / 2);
+            int pivotal = (right + left) / 2;
             if (nums[pivotal] > target) {
                 right = pivotal - 1;
             } else if (nums[pivotal] < target) {

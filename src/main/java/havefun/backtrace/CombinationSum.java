@@ -8,32 +8,31 @@ public class CombinationSum {
 
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
-        combinationSumCore1AnotherStyle(candidates, target, 0, new Stack<>(), result);
+        combinationSumCore(candidates, target, 0, new Stack<>(), result);
         return result;
     }
 
-    // incorrect
     public static void combinationSumCore(int[] candidates,
                                           int target,
                                           int start,
                                           Stack<Integer> state,
                                           List<List<Integer>> result) {
+        int sum = calculateSum(state);
+        if (sum == target) {
+            result.add(new ArrayList<>(state));
+            return;
+        } else if (sum > target) {
+            return;
+        }
         for (int i = start; i < candidates.length; i++) {
             state.push(candidates[i]);
-            int sum = calculateSum(state);
-            if (sum == target) {
-                result.add(new ArrayList<>(state));
-                state.pop();
-            } else if (target > sum) {
-                combinationSumCore(candidates, target, i, state, result);
-            } else {
-                state.pop();
-            }
+            // when sum is smaller than target, always review current element, once method returns, it will pop and i will increase 1 to next element.
+            combinationSumCore(candidates, target, i, state, result);
+            if (!state.isEmpty()) state.pop();
         }
-        // begin next round review
-        if (state.size() > 0) state.pop();
     }
 
+    // incorrect
     public static void combinationSumCoreWithCutting(int[] candidates,
                                                      int target,
                                                      int start,
@@ -76,7 +75,7 @@ public class CombinationSum {
                 state.pop();
                 continue;// forward
             }
-            if (calculateSum(state) > target) {
+            if (sum > target) {
                 state.pop();
                 continue; // forward
             }
@@ -98,7 +97,7 @@ public class CombinationSum {
             result.add(new ArrayList<>(state));
             return;
         }
-        if (calculateSum(state) > target) {
+        if (sum > target) {
             return;
         }
         // only when calculateSum(state) < target, proceeding to below part.
@@ -115,11 +114,9 @@ public class CombinationSum {
     }
 
     private static int calculateSum(Stack<Integer> state) {
-        int i = state.size() - 1;
         int result = 0;
-        while (state.size() > 0 && i >= 0) {
+        for (int i = 0; i < state.size(); i++) {
             result += state.get(i);
-            i--;
         }
         return result;
     }

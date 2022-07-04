@@ -22,16 +22,12 @@ public class PalindromePartitioning {
             return;
         }
         for (int i = start; i < s.length(); i++) {
-            String sub = s.substring(start, i + 1);
-            if (sub.length() == 1) {
-                once.add(sub);
-            } else if (isPalindrome(sub)) {
-                once.add(sub);
-            } else { // if this is not palindrome, then the string can not be partitioned here, so continue.
-                continue;
+            String path = s.substring(start, i + 1);
+            if (isPalindrome(path)) {
+                once.add(path);
+                partitionCore(i + 1, res, s, once);
+                once.remove(once.size() - 1);
             }
-            partitionCore(i + 1, res, s, once);
-            once.remove(once.size() - 1);
         }
     }
 

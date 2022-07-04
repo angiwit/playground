@@ -34,4 +34,29 @@ public class MergeKLinkedlist {
         }
         return dummyHead.next;
     }
+
+    public ListNode mergeKLists0(ListNode[] lists) {
+        if (lists.length == 0) return null;
+        return merge(lists, 0, lists.length - 1);
+    }
+
+    private ListNode merge(ListNode[] lists, int start, int end) {
+        if (start == end) return lists[start];
+        int mid = (start + end) / 2;
+        ListNode one = merge(lists, start, mid);
+        ListNode two = merge(lists, mid + 1, end);
+        return mergeTwo(one, two);
+    }
+
+    private ListNode mergeTwo(ListNode one, ListNode two) {
+        if (one == null) return two;
+        if (two == null) return one;
+        if (one.val <= two.val) {
+            one.next = mergeTwo(one.next, two);
+            return one;
+        } else {
+            two.next = mergeTwo(one, two.next);
+            return two;
+        }
+    }
 }

@@ -15,10 +15,11 @@ public class IterationTree {
         Stack<TreeNode> stack = new Stack<>();
         stack.add(root);
         while (!stack.isEmpty()) {
-            System.out.println(stack.pop().val);
-            if (root.left != null) stack.push(root.left);
+            if (root.right != null) {
+                stack.push(root.right);
+            } else {
+                stack.push(root.left);
+            }
         }
-
-
     }
 }

@@ -31,6 +31,7 @@ public class ReconstructQueue {
      * @return
      */
     public static int[][] reconstructQueueCore(int[][] people) {
+        // sort height by descend order, so we can insert the smaller index correctly.
         Arrays.sort(people, (o1, o2) -> {
             if (o1[0] == o2[0]) {
                 return o1[1] - o2[1];
