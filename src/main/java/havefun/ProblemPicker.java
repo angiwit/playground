@@ -8,7 +8,7 @@ public class ProblemPicker {
 
     private static final Map<String, Integer> problemNo = new HashMap<>();
     private static final Random random = new Random(System.currentTimeMillis());
-    private static final int CODE_TOP_PAGE = 18;
+    private static final int CODE_TOP_PAGE = 10;
 
     static {
         problemNo.put("array", 6);
@@ -32,7 +32,7 @@ public class ProblemPicker {
     private static void pickSpecific(String type) {
         if (type.equals("codetop")) {
             int pageNo = new Random(System.currentTimeMillis()).nextInt(CODE_TOP_PAGE);
-            int number = new Random(System.currentTimeMillis() / 100000).nextInt(20);
+            int number = new Random(System.currentTimeMillis()).nextInt(20);
             System.out.println(String.format("pageNo is: %s, number is: %s", pageNo, number));
             return;
         }

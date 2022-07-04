@@ -8,7 +8,8 @@ public class BinarySearch {
     }
 
     /**
-     * If using left <= right, then right = middle - 1; if left < right, then right = middle.
+     * If using left <= right, then right = middle - 1.
+     * If using left < right, then right = middle.
      * Consider this:
      * 1. if at last, left == right, and left <= right is the condition,
      * if we don't make right move to left, then the middle will be 0 and into infinite loop.
@@ -24,7 +25,7 @@ public class BinarySearch {
      */
     public static int searchCoreIteration(int[] nums, int target, int left, int right) {
         while (left <= right) {
-            int middle = left + ((right - left) / 2);
+            int middle = (left + right) / 2;
             if (nums[middle] < target) {
                 left = middle + 1;
             } else if (nums[middle] > target) {

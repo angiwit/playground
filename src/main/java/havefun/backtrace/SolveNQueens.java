@@ -43,7 +43,7 @@ public class SolveNQueens {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
             StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < board[i].length; j++) {
+            for (int j = 0; j < board.length; j++) {
                 sb.append(board[i][j]);
             }
             result.add(sb.toString());
@@ -52,17 +52,17 @@ public class SolveNQueens {
     }
 
     private static boolean checkBoard(int i, int j, char[][] board) {
-        int n = board.length;
-        for (int k = 0; k < n; k++) {
-            for (int l = 0; l < i; l++) {
-                if (board[l][j] == 'Q') return false;
-            }
-            for (int l = i - 1, m = j - 1; l >= 0 && m >= 0; l--, m--) {
-                if (board[l][m] == 'Q') return false;
-            }
-            for (int l = i - 1, m = j + 1; l >= 0 && m < n; l--, m++) {
-                if (board[l][m] == 'Q') return false;
-            }
+        for (int l = 0; l < i; l++) {
+            if (board[l][j] == 'Q') return false;
+        }
+        for (int m = 0; m < j; m++) {
+            if (board[i][m] == 'Q') return false;
+        }
+        for (int l = i - 1, m = j - 1; l >= 0 && m >= 0; l--, m--) {
+            if (board[l][m] == 'Q') return false;
+        }
+        for (int l = i - 1, m = j + 1; l >= 0 && m < board.length; l--, m++) {
+            if (board[l][m] == 'Q') return false;
         }
         return true;
     }

@@ -53,6 +53,7 @@ public class Combination {
         for (int i = start; i > k - 1 - end - found.size(); i++) {
             // left still need choose: k - found.size(), index should be less than [end - (k - found.size()) + 1].
 //            if (i > end - (k - found.size()) + 1) break;
+            //if (end - i + 1 + found.size() > k) {}
             found.push(i);
             combineCore(k, i + 1, end, found, result);
             found.pop();

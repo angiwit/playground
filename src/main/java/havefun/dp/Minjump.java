@@ -19,8 +19,9 @@ public class Minjump {
     public static int jumpCore(int[] nums) {
         int end = 0;
         int step = 0;
+        int longestJump = 0;
         for (int i = 0; i < nums.length; i++) {
-            int longestJump = nums[i] + i;
+            longestJump = Math.max(nums[i] + i, longestJump);
             if (i == end) {
                 end = longestJump;
                 step++;

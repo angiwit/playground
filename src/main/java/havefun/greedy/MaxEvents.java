@@ -1,6 +1,7 @@
 package havefun.greedy;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -25,14 +26,12 @@ public class MaxEvents {
      * @return
      */
     public static int maxEventsCore(int[][] events) {
-        Arrays.sort(events, (o1, o2) -> {
-            if (o1[1] == o2[1]) {
-                return o1[0] - o2[0];
-            }
-            return o1[1] - o2[1];
-        }); // sort by end day.
-        int result = 0, i = 0, currentDay = 1;
+        Arrays.sort(events, Comparator.comparingInt(o -> o[0]));
+        int currentDay = 1;
+        int maxEvents = 1;
+        int result = 0;
         PriorityQueue<Integer> ends = new PriorityQueue<>();
+        int i = 0;
         while (i < events.length || !ends.isEmpty()) {
             while (i < events.length && events[i][0] == currentDay) {
                 ends.offer(events[i++][1]);
@@ -40,9 +39,10 @@ public class MaxEvents {
             while (!ends.isEmpty() && ends.peek() < currentDay) {
                 ends.poll();
             }
+            // choose one day to participant the event.
             if (!ends.isEmpty()) {
-                ends.remove();
-                result++;
+                ends.remove(); // remove the head of the queue. choose the smallest end event to participant.
+                result += 1;
             }
             currentDay++;
         }
