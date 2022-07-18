@@ -1,5 +1,6 @@
 package havefun.dp;
 
+
 public class MaxProduct {
 
     public static void main(String[] args) {
@@ -7,6 +8,10 @@ public class MaxProduct {
         System.out.println(maxProduct(nums));
     }
 
+    /**
+     * If I can know ith number max product, then I can know (i+1)th number's max product in polynomial time.
+     * So the (i+1)th number result rely on ith result.
+     */
     public static int maxProduct(int[] nums) {
         int result = Integer.MIN_VALUE, min = 1, max = 1;
         for (int i = 0; i < nums.length; i++) {

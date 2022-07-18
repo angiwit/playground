@@ -18,6 +18,15 @@ public class WordBreak {
         System.out.println(wordBreak(s, wordDict));
     }
 
+    /**
+     * This is a substring problem since for any words in the given string, it can start at any index and
+     * end at any index. So start index and end index would be to dimension for this problem, and this needs
+     * n^2 time complexity.
+     *
+     * @param s
+     * @param wordDict
+     * @return
+     */
     public static boolean wordBreak(String s, List<String> wordDict) {
         if (wordDict == null) return false;
         Deque<String> result = new ArrayDeque<>();

@@ -1,5 +1,11 @@
 package havefun.dp;
 
+/**
+ * SRTBOT:
+ * subproblem: F(i, j): there are numbers in the list can be formed to j.
+ * relation: F(n, t) = f(i, j)
+ * Base case: F(0, 0) = true
+ */
 public class CanPartition {
 
     public static boolean canPartition(int[] nums) {
