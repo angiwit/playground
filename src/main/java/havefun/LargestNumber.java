@@ -11,6 +11,8 @@ public class LargestNumber {
      * if compareTo returns negative, ordering from small to large.
      * if compareTo returns positive, ordering from large to small.
      * If want to sort by nature order, pass the larger as the parameter, otherwise pass the smaller as the parameter.
+     * Regard the numbers as string, so that the + operation becomes to string concanation, different concat order
+     * will have different result and we can use this as the compare function in the comparator.
      *
      * @param nums
      * @return

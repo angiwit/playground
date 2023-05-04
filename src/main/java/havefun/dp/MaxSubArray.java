@@ -1,5 +1,6 @@
 package havefun.dp;
 
+//https://leetcode.cn/problems/maximum-subarray/
 public class MaxSubArray {
 
     public static int maxSubArray(int[] nums) {
@@ -15,6 +16,17 @@ public class MaxSubArray {
         }
         return dp[nums.length - 1];
     }
+    
+    private int maxSubArrayCore1(int[] nums) {
+        int max = nums[0];
+        int curSum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (curSum < 0) curSum = 0;
+            curSum += nums[i];
+            max = Math.max(max, curSum);
+        }
+        return max;
+    } 
 
     public static void main(String[] args) {
         int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};

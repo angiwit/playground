@@ -7,8 +7,8 @@ import java.util.Random;
 public class CalculateIndex {
 
     /**
-     * Since array's index starts from 0, so given an index,
-     * 1. the number of the right partition is size - index, index included, which means index is in the right partition.
+     * Since array's index starts from 0, so given an index(in mergeSort scenario),
+     * 1. the number of the right partition is size - index, left close right open, which means index is in the right partition.
      * 2. the number of the left partition equals index, index not included.
      *
      * @param args

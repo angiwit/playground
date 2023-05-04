@@ -3,7 +3,7 @@ package havefun.backtrace;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
+// https://leetcode.cn/problems/combination-sum/
 public class CombinationSum {
 
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
@@ -28,7 +28,7 @@ public class CombinationSum {
             state.push(candidates[i]);
             // when sum is smaller than target, always review current element, once method returns, it will pop and i will increase 1 to next element.
             combinationSumCore(candidates, target, i, state, result);
-            if (!state.isEmpty()) state.pop();
+            state.pop();
         }
     }
 
@@ -53,10 +53,18 @@ public class CombinationSum {
             }
         }
         // begin next round review
-        if (state.size() > 0) state.pop();
+        state.pop();
     }
 
     //correct
+    /**
+     * Only this problem can use this style because the i's forward always happens in for loop instead of recursive call with i + 1.
+     * @param candidates
+     * @param target
+     * @param start
+     * @param state
+     * @param result
+     */
     public static void combinationSumCore1(int[] candidates,
                                            int target,
                                            int start,
@@ -81,7 +89,7 @@ public class CombinationSum {
             }
             combinationSumCore1(candidates, target, i, state, result);
             // begin next round review
-            if (state.size() > 0) state.pop();
+            state.pop();
         }
     }
 
@@ -109,7 +117,7 @@ public class CombinationSum {
             state.push(candidates[i]);
             combinationSumCore1AnotherStyle(candidates, target, i, state, result);
             // begin next round review
-            if (state.size() > 0) state.pop();
+            state.pop();
         }
     }
 

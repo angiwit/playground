@@ -1,7 +1,7 @@
 package havefun.greedy;
 
 import java.util.Arrays;
-
+// https://leetcode.cn/problems/jump-game-ii/
 public class MinJump {
 
     public static int jumpDp(int[] nums) {

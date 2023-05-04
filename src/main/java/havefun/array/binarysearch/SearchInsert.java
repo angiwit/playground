@@ -1,5 +1,6 @@
 package havefun.array.binarysearch;
 
+// https://leetcode.cn/problems/search-insert-position/
 public class SearchInsert {
 
     public static void main(String[] args) {

@@ -2,7 +2,7 @@ package havefun.datastructure;
 
 import java.util.HashMap;
 import java.util.Map;
-
+// https://leetcode.cn/problems/lru-cache/
 public class LRUCache {
 
     private ListNode dummyHead;

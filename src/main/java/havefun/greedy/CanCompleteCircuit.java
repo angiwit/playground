@@ -1,5 +1,6 @@
 package havefun.greedy;
 
+//https://leetcode.cn/problems/gas-station/
 public class CanCompleteCircuit {
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package havefun.array.binarysearch;
 
+// https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/
 public class SearchRange {
     public static void main(String[] args) {
         int[] nums = {5, 7, 7, 8, 8, 10};

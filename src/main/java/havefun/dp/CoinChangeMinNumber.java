@@ -2,6 +2,7 @@ package havefun.dp;
 
 import java.util.Arrays;
 
+//https://leetcode.cn/problems/coin-change/
 // find the min count of coins for change.
 public class CoinChangeMinNumber {
 

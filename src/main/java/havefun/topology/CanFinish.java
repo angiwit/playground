@@ -1,7 +1,7 @@
 package havefun.topology;
 
 import java.util.*;
-
+//https://leetcode.cn/problems/course-schedule/
 public class CanFinish {
 
     public static void main(String[] args) {
