@@ -28,7 +28,6 @@ public class MaxEvents {
     public static int maxEventsCore(int[][] events) {
         Arrays.sort(events, Comparator.comparingInt(o -> o[0]));
         int currentDay = 1;
-        int maxEvents = 1;
         int result = 0;
         PriorityQueue<Integer> ends = new PriorityQueue<>();
         int i = 0;

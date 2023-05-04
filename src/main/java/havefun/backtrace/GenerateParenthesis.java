@@ -2,7 +2,7 @@ package havefun.backtrace;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// https://leetcode.cn/problems/generate-parentheses/
 public class GenerateParenthesis {
 
     public static List<String> generateParenthesis(int n) {

@@ -1,9 +1,10 @@
-package havefun.backtrace;
+package havefun.doublepointer;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.TreeMap;
 
+//https://leetcode.cn/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/submissions/
 public class LongestSubarray {
 
     public static int longestSubarray(int[] nums, int limit) {
@@ -25,6 +26,23 @@ public class LongestSubarray {
         return result;
     }
 
+    /**
+     * Using two deque to track the values in asc order and desc order corresponding to minQueue and maxQueue.
+     * First element in maxQueue is the biggest number encountered and the first element in minQueue is the smallest.
+     * Calculate the max minus value of values in encountered numbers is to use the biggest number to minus the smallest one.
+     * We also need to pop out the element once we found the max minus value is bigger than limit, so we need to use another
+     * pointer to point to the beginning of the range.
+     * When biggest - smallest > limit, it means the first value in maxQueue or minQueue is not a suitable value, we need to
+     * pop it out and make the left pointer forward 1 step.
+     * Otherwise means the right - left is a valid result, and we need to check if it's bigger than current max, if true update
+     * current max (return value). 
+     * 
+     * Stack or Deque are suitable data structure for tracking max value or min value in an array range, we need this keen to 
+     * ensure we can come up this when we encounter a similar problem.
+     * @param nums
+     * @param limit
+     * @return
+     */
     public static int longestSubarray1(int[] nums, int limit) {
         Deque<Integer> maxQueue = new ArrayDeque<>();
         Deque<Integer> minQueue = new ArrayDeque<>();

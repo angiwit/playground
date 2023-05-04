@@ -41,11 +41,6 @@ public class FindWords {
         board[i][j] = cur;
     }
 
-    public static void main(String[] args) {
-        char[][] board = {{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}};
-        String[] words = {"oath", "pea", "eat", "rain"};
-        System.out.println(findWords(board, words));
-    }
 
     static class Trie {
         private String word;
@@ -62,5 +57,11 @@ public class FindWords {
             }
             cur.word = word;
         }
+    }
+    
+    public static void main(String[] args) {
+        char[][] board = {{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}};
+        String[] words = {"oath", "pea", "eat", "rain"};
+        System.out.println(findWords(board, words));
     }
 }

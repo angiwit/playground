@@ -1,7 +1,7 @@
 package havefun.dp;
 
 import java.util.PriorityQueue;
-
+// https://leetcode.cn/problems/furthest-building-you-can-reach/
 public class FurthestBuilding {
 
     private static int ans = 0;
@@ -20,6 +20,7 @@ public class FurthestBuilding {
         if (consumeBricks <= 0) {
             furthestBuildingCore(heights, bricks, ladders, index + 1);
         } else {
+            // It doesn't seem this solution is working. Because here we always use bricks first which might not be an optimal solution.
             if (bricks >= consumeBricks) {
                 furthestBuildingCore(heights, bricks - consumeBricks, ladders, index + 1);
             }
@@ -40,7 +41,7 @@ public class FurthestBuilding {
             } else {
                 if (ladders > 0) {
                     ladders--;
-                    bricks += queue.peek() == null ? 0 : queue.poll();
+                    bricks += queue.peek() == null ? 0 : queue.poll(); // get max bricks count to ensure the following buildings usage.
                 } else {
                     return i - 1;
                 }

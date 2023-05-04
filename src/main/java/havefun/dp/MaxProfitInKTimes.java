@@ -1,5 +1,6 @@
 package havefun.dp;
 
+// https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/
 /**
  * There's three dimension array controls the result, so we need a three dimension table to memorize the temporary results.
  * We can use a 2 dimension array to memorize results but it could be complex.
@@ -51,6 +52,7 @@ public class MaxProfitInKTimes {
                 profit[i][0][j] = 0;
             }
         }
+        // Make sure all the [0][i][1] is been initialized to -prices[0].
         for (int i = 1; i <= k; i++) {
             profit[0][i][0] = 0;
             profit[0][i][1] = -prices[0];
@@ -59,9 +61,7 @@ public class MaxProfitInKTimes {
         for (int j = 1; j < prices.length; j++) {
             for (int i = 1; i <= k; i++) {
                 profit[j][i][0] = Math.max(profit[j - 1][i][0], profit[j - 1][i][1] + prices[j]);
-                System.out.println(String.format("profit[%s][%s][%s]=%s", j, i, 0, profit[j][i][0]));
                 profit[j][i][1] = Math.max(profit[j - 1][i][1], profit[j - 1][i - 1][0] - prices[j]);
-                System.out.println(String.format("profit[%s][%s][%s]=%s", j, i, 1, profit[j][i][1]));
             }
         }
         return profit[prices.length - 1][k][0];

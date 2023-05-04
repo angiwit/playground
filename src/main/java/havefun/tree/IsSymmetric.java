@@ -2,6 +2,7 @@ package havefun.tree;
 
 import havefun.TreeNode;
 
+//https://leetcode.cn/problems/symmetric-tree/
 public class IsSymmetric {
 
     public static boolean isSymmetric(TreeNode root) {

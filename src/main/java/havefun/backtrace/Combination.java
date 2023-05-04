@@ -19,7 +19,7 @@ public class Combination {
     public static List<List<Integer>> combine(int n, int k) {
         if (n <= 0 || k <= 0) return new ArrayList<>();
         List<List<Integer>> result = new ArrayList<>();
-        combineCore(k, 1, n + 1, new Stack<>(), result);
+        combineCore(k, 1, n, new Stack<>(), result);
         return result;
     }
 
@@ -37,8 +37,11 @@ public class Combination {
     }
 
     /**
-     * When cutting branch, calculate the state's size and the numbers left, if not sufficient, break current loop.
-     *
+     * Known start and end and found.size(), we need to calculate the i range that the for loop should execute.
+     * We still need to find (k - found.size()) elements. from i to end there's (end - i) elements.
+     * So the loop condition is: k - found.size() <= end - i, which equals to i <= end - (k - found.size()).
+     * In this problem, the index is not from 0 but from 1, so we need to add 1 to right equasion to i <= end - (k - found.size()) + 1,
+     * but this could also change based on the passed end from invocation, e.g. if passed n + 1 as end, there's no need to add 1 in above equasion.
      * @param k
      * @param start
      * @param end
@@ -50,10 +53,7 @@ public class Combination {
             result.add(new ArrayList<>(found));
             return;
         }
-        for (int i = start; i > k - 1 - end - found.size(); i++) {
-            // left still need choose: k - found.size(), index should be less than [end - (k - found.size()) + 1].
-//            if (i > end - (k - found.size()) + 1) break;
-            //if (end - i + 1 + found.size() > k) {}
+        for (int i = start; i <= end - (k - found.size()) + 1; i++) {
             found.push(i);
             combineCore(k, i + 1, end, found, result);
             found.pop();

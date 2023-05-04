@@ -1,5 +1,6 @@
 package havefun.dp;
 
+// https://practice.geeksforgeeks.org/problems/special-keyboard3018/1
 public class OptimalKeys {
 
     public static void main(String[] args) {
